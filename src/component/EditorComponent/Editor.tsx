@@ -14,7 +14,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   lang = "javascript",
   onChange,
 }: CodeEditorProps) => {
-    
   const [value, setValue] = useState(code);
 
   const handleChange = (value: string | undefined) => {
@@ -29,7 +28,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       <Editor
         height="85vh"
         language={lang}
-        value={value}
         theme={theme}
         defaultLanguage="// some comments"
         onChange={handleChange}

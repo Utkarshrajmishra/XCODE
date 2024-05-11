@@ -1,17 +1,19 @@
-const Themes=[
-    {
-        name:"VS-Code Dark",
-        id:"vs-dark"
-    },
-    {
-        name:"VS-Code Light",
-        id:"vs"
-    },
-    {
-        name:"HC Black",
-        id:"hc-black"
-    }
+interface Theme {
+  label: string;
+  value: string;
+}
 
-]
-
-export default Themes;
+export const Themes: Theme[] = [
+  {
+    label: "VS-Code Dark",
+    value: "vs-dark",
+  },
+  {
+    label: "VS-Code Light",
+    value: "vs",
+  },
+  {
+    label: "HC Black",
+    value: "hc-black",
+  },
+];
