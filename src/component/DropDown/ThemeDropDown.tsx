@@ -15,7 +15,7 @@ interface ThemeProps{
 const ThemeDropDown:React.FC<ThemeProps>= ({
   handleChange
 }:ThemeProps) => {
-  const [selectedTheme, setSelectedTheme] = useState(options[0]); // Set default theme here
+  const [selectedTheme, setSelectedTheme] = useState(options[0]);
 
   const themeChanged = (selectedOption: any) => {
     setSelectedTheme(selectedOption);
