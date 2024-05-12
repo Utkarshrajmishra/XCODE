@@ -3,22 +3,25 @@ import { useState } from "react";
 import { Languages } from "../../constants/Languages";
 import { Styles } from "../../constants/Style";
 
-const options = Languages.map((theme) => ({
-  label: theme.label,
-  value: theme.value,
-  id:theme.id
+const options = Languages.map((lang) => ({
+ id:lang.id,
+ name:lang.name,
+ label:lang.label,
+ value:lang.value,
 }));
 
-interface ThemeProps {
+interface LanguageProps {
   handleChange: (currentLang: string, currentVersion:string) => void;
 }
 
-const LanguageDropDown: React.FC<ThemeProps> = ({ handleChange }: ThemeProps) => {
-  const [selectedTheme, setSelectedTheme] = useState(options[0]);
+const LanguageDropDown: React.FC<LanguageProps> = ({
+  handleChange,
+}: LanguageProps) => {
+  const [Language, setLanguage] = useState(options[0]);
 
-  const themeChanged = (selectedOption: any) => {
-    setSelectedTheme(selectedOption);
-    handleChange(selectedTheme.value,selectedTheme.id);
+  const themeChanged = (selectedLang: any) => {
+    setLanguage(selectedLang);
+    handleChange(selectedLang.value, selectedLang.id);
   };
 
   return (
@@ -27,7 +30,7 @@ const LanguageDropDown: React.FC<ThemeProps> = ({ handleChange }: ThemeProps) =>
         onChange={themeChanged}
         styles={Styles}
         options={options}
-        value={selectedTheme}
+        value={Language}
       />
     </>
   );
