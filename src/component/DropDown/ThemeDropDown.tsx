@@ -18,8 +18,10 @@ const ThemeDropDown:React.FC<ThemeProps>= ({
   const [selectedTheme, setSelectedTheme] = useState(options[0]);
 
   const themeChanged = (selectedOption: any) => {
+    console.log(selectedOption)
+    console.log(selectedOption.value)
     setSelectedTheme(selectedOption);
-    handleChange(selectedTheme.value)
+    handleChange(selectedOption.value);
   };
 
   return (

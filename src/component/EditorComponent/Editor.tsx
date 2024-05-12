@@ -25,13 +25,15 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
   return (
     <>
-      <Editor
-        height="85vh"
-        language={lang}
-        theme={theme}
-        defaultLanguage="// some comments"
-        onChange={handleChange}
-      />
+      <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
+        <Editor
+          height="85vh"
+          language={lang}
+          theme={theme}
+          defaultLanguage="// some comments"
+          onChange={handleChange}
+        />
+      </div>
     </>
   );
 };

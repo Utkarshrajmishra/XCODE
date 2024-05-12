@@ -11,17 +11,17 @@ const options = Languages.map((lang) => ({
 }));
 
 interface LanguageProps {
-  handleChange: (currentLang: string, currentVersion:string) => void;
+  handleChangeLang: (currentLang: any) => void;
 }
 
 const LanguageDropDown: React.FC<LanguageProps> = ({
-  handleChange,
+  handleChangeLang,
 }: LanguageProps) => {
   const [Language, setLanguage] = useState(options[0]);
 
   const themeChanged = (selectedLang: any) => {
     setLanguage(selectedLang);
-    handleChange(selectedLang.value, selectedLang.id);
+    handleChangeLang(selectedLang);
   };
 
   return (

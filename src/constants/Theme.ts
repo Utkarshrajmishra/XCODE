@@ -10,7 +10,7 @@ export const Themes: Theme[] = [
   },
   {
     label: "VS-Code Light",
-    value: "vs",
+    value: "vs-light",
   },
   {
     label: "HC Black",

@@ -11,7 +11,7 @@ const InputWindow: React.FC<InputWindowProps> = ({
     <>
       {" "}
       <textarea
-        rows={10}
+        rows={4}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder={`Custom input`}
