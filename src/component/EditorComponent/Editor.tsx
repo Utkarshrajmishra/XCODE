@@ -19,7 +19,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   const handleChange = (values: string | undefined) => {
     if (values) {
       setValue(values);
-      onChange("code", value);
+      onChange("code", values);
     }
   };
 
@@ -30,7 +30,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           height="85vh"
           language={lang}
           theme={theme}
-          defaultLanguage="// some comments"
+          defaultLanguage="javascript"
           onChange={handleChange}
         />
       </div>

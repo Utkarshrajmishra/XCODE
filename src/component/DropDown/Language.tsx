@@ -4,10 +4,10 @@ import { Languages } from "../../constants/Languages";
 import { Styles } from "../../constants/Style";
 
 const options = Languages.map((lang) => ({
- id:lang.id,
- name:lang.name,
- label:lang.label,
- value:lang.value,
+  id: lang.id,
+  name: lang.name,
+  label: lang.label,
+  value: lang.value,
 }));
 
 interface LanguageProps {

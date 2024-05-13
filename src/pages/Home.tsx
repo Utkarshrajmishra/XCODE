@@ -5,19 +5,20 @@ import LanguageDropDown from "../component/DropDown/Language";
 import CodeEditor from "../component/EditorComponent/Editor";
 import InputWindow from "../component/InputWindow/InputWindow";
 import OutputWindow from "../component/Output/OutputWindow";
+import axios from "axios";
+
 const Home = () => {
   const [theme, setTheme] = useState("vs-dark");
-  const [langID, setLangID] = useState<Number>();
+  const [langID, setLangID] = useState<Number>(63);
   const [language, setLanguage] = useState("");
   const [code, setCode] = useState("");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [processing,setProcessing]=useState('')
+  const [processing, setProcessing] = useState(false);
 
   const handleChange = (newTheme: string) => {
     setTheme(newTheme);
-
-    console.log(theme);
+    console.log(import.meta.env.VITE_REACT_JUDGE_URL);
   };
 
   const handleChangeLang = (newLanguage: any) => {
@@ -29,9 +30,83 @@ const Home = () => {
     if (codeType == "code") setCode(code);
   };
 
-  const handleCompile=()=>{
+  const handleCompile = () => {
+    //console.log(import.meta.env.VITE_API_HOST);
 
-  }
+    setProcessing(true);
+    const Data = {
+      language_id: langID,
+      source_code: btoa(code),
+      stdin: btoa(input),
+    };
+
+    const options = {
+      method: "POST",
+      url: import.meta.env.VITE_JUDGE_URL,
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host": import.meta.env.VITE_JUDGE_HOST,
+        "X-RapidAPI-Key": import.meta.env.VITE_JUDGE_KEY,
+      },
+      data: Data,
+    };
+
+    axios
+      .request(options)
+      .then((res) => {
+        const token = res.data.token;
+        checkStatus(token);
+      })
+      .catch((err) => {
+        console.log(err);
+        let error = err.response ? err.response.data : err;
+        // get error status
+        let status = err.response.status;
+        //console.log("status", status);
+        if (status === 429) {
+          alert("Servers are busy, please try again later!");
+        }
+        return setProcessing(false);
+      });
+  };
+
+  const checkStatus = async (token: any) => {
+    console.log(import.meta.env.VITE_API_URL);
+    const options = {
+      method: "GET",
+      url: import.meta.env.VITE_JUDGE_URL + "/" + token,
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host": import.meta.env.VITE_JUDGE_HOST,
+        "X-RapidAPI-Key": import.meta.env.VITE_JUDGE_KEY,
+      },
+    };
+    try {
+      let response = await axios.request(options);
+      let statusId = response.data.status?.id;
+
+      // Processed - we have a result
+      if (statusId === 1 || statusId === 2) {
+        // still processing
+        setTimeout(() => {
+          checkStatus(token);
+        }, 2000);
+        return;
+      } else {
+        setProcessing(false);
+        setOutput(response.data);
+        //console.log("response.data", response.data);
+        return;
+      }
+    } catch (err) {
+      console.log("err", err);
+      setProcessing(false);
+    }
+  };
 
   return (
     <>
@@ -53,7 +128,7 @@ const Home = () => {
             lang={language}
           />
         </div>
-        <div className="flex-col w-[40%] px-4">
+        <div className="flex-col w-[40%] pr-4">
           <div className="right-container flex flex-shrink-0  flex-col">
             <OutputWindow currentOutput={output} />
           </div>
@@ -67,7 +142,9 @@ const Home = () => {
             >
               {processing ? "Processing..." : "Compile and Execute"}
             </button>
-            {output && <OutputDetails outputDetails={output} />}
+            <div className="left-0">
+              {output ? <OutputDetails outputInfo={output} /> : ""}
+            </div>
           </div>
         </div>
       </div>

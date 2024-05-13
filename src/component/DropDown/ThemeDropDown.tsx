@@ -8,28 +8,26 @@ const options = Themes.map((theme) => ({
   value: theme.value,
 }));
 
-interface ThemeProps{
-  handleChange:(currentTheme:string)=>void
+interface ThemeProps {
+  handleChange: (currentTheme: string) => void;
 }
 
-const ThemeDropDown:React.FC<ThemeProps>= ({
-  handleChange
-}:ThemeProps) => {
+const ThemeDropDown: React.FC<ThemeProps> = ({ handleChange }: ThemeProps) => {
   const [selectedTheme, setSelectedTheme] = useState(options[0]);
 
   const themeChanged = (selectedOption: any) => {
-    console.log(selectedOption)
-    console.log(selectedOption.value)
     setSelectedTheme(selectedOption);
     handleChange(selectedOption.value);
   };
 
   return (
     <>
-      <Select onChange={themeChanged}
-      styles={Styles}
-      options={options} 
-      value={selectedTheme} />
+      <Select
+        onChange={themeChanged}
+        styles={Styles}
+        options={options}
+        value={selectedTheme}
+      />
     </>
   );
 };

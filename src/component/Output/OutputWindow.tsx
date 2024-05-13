@@ -1,7 +1,7 @@
-const OutputWindow = ({ currentOutput }: any) => {
-    
+const OutputWindow = ({ currentOutput }:any) => {
   const Output = () => {
     let statusId = currentOutput?.status.id;
+   
     if (statusId == 6) {
       return (
         <pre className="px-2 py-1 font-normal text-xs text-red-500">
@@ -15,6 +15,7 @@ const OutputWindow = ({ currentOutput }: any) => {
         </pre>
       );
     } else if (statusId === 3) {
+      
       return (
         <pre className="px-2 py-1 font-normal text-xs text-green-500">
           {atob(currentOutput.stdout) !== null
