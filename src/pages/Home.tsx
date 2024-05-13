@@ -61,7 +61,7 @@ const Home = () => {
       })
       .catch((err) => {
         console.log(err);
-        let error = err.response ? err.response.data : err;
+        
         // get error status
         let status = err.response.status;
         //console.log("status", status);

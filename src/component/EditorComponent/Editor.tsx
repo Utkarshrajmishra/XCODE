@@ -1,5 +1,5 @@
 import { Editor } from "@monaco-editor/react";
-import { useState } from "react";
+
 
 interface CodeEditorProps {
   code: string;
@@ -9,16 +9,15 @@ interface CodeEditorProps {
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
-  code = "",
   theme = "vs-dark",
   lang = "javascript",
   onChange,
 }: CodeEditorProps) => {
-  const [value, setValue] = useState(code);
+  //const [value, setValue] = useState(code);
 
   const handleChange = (values: string | undefined) => {
     if (values) {
-      setValue(values);
+      //setValue(values);
       onChange("code", values);
     }
   };
